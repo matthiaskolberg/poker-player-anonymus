@@ -16,7 +16,7 @@ public class Player {
 			JsonObject obj = request.getAsJsonObject();
 			JsonArray players = obj.get("players").getAsJsonArray();
 			
-			return 50;
+			return 10000;
 		} catch (Throwable e) {
 			System.err.println(e);
 			return 50;
