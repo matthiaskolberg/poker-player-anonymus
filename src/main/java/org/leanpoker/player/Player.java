@@ -55,40 +55,20 @@ public class Player {
 			
 			// wir gehen immer mit
 			int unserbet = 0;
+			String preflopDecision = getPreflopDecision(ourCards);
 
-			// wenn wir zwei bilder auf der hand haben
-			if (isAKQJ(ourCards.get(0)) && isAKQJ(ourCards.get(1))) {
-				System.out.println("wir haben zwei Bilder auf der hand");
-				// verdoppeln des einsatzes 
+			if (preflopDecision.equals("2BS")) {
+				System.out.println("wir haben zwei Bilder auf der hand suited");
 				unserbet = hoechsterbet*2;
-				
-				//Paar mit Bildern!! Rock n Roll!!
-				if (isPairOnHand(ourCards)) {
-					unserbet = hoechsterbet*40;
-				}
-			} else if (isAKQJ(ourCards.get(0)) || isAKQJ(ourCards.get(1))) {
-				// wir haben ein bild auf der hand
-				System.out.println("wir haben ein Bild auf der hand");
-
-				if (communityCards.size() == 0) {
-					// und beide karten von einer farbe
-					if (isSuitedOnHand(ourCards)) {
-						// gleiche Farbe
-						unserbet = hoechsterbet*2;
-					}					
-				} else {
-					// paar mit community cards
-					if (paarMitBild(ourCards, communityCards)) {
-						unserbet = hoechsterbet*5;
-					} 					
-				}
-			} else {
-				// wir haben kein bild auf der hand
-				
-				// aber ein paar
-				if (isPairOnHand(ourCards)) {
-					unserbet = hoechsterbet*2;
-				}
+			} else if (preflopDecision.equals("2BP")) {
+				System.out.println("Paar Rock'n'Roll!");
+				unserbet = hoechsterbet*4;
+			} else if (preflopDecision.equals("2BU")) {
+				System.out.println("wir haben zwei Bilder auf der hand unsuited");
+				unserbet = hoechsterbet*2;
+			} else if (preflopDecision.equals("1BS")) {
+				System.out.println("wir haben ein Bild suited auf der hand");
+				unserbet = hoechsterbet*2;
 			}
 					
 			return unserbet;
@@ -96,6 +76,30 @@ public class Player {
 			System.err.println(e);
 			return 123;
 		}
+	}
+	
+	private static String getPreflopDecision(List<Card> cards) {
+		String decision = "";
+		if (isAKQJ(cards.get(0)) && isAKQJ(cards.get(1))) {
+			if (isPairOnHand(cards)) {
+				decision = "2BP";
+			} else if (isSuitedOnHand(cards)) {
+				decision = "2BS";
+			} else {
+				decision = "2BU";
+			}
+		} else if (isAKQJ(cards.get(0)) || isAKQJ(cards.get(1))) {
+			if (isSuitedOnHand(cards)) {
+				decision = "1BS";
+			} else {
+				decision = "1BU";
+			}
+		} else if (isPairOnHand(cards)) {
+			decision = "0P";
+		} else if (isSuitedOnHand(cards)) {
+			decision = "0S";
+		}
+		return decision;
 	}
 	
 	private static boolean paarMitBild(List<Card> handkarten, List<Card> commkarten) {
@@ -115,6 +119,25 @@ public class Player {
 		}
 		
 		return paarMitBild;
+	}
+	
+	private static boolean isDrilling(List<Card> handkarten, List<Card> commkarten) {
+		boolean drillingMitBild = false;
+		
+		String bildkarte = "";
+		if (isAKQJ(handkarten.get(0))) {
+			bildkarte = handkarten.get(0).getRank();
+		} else {
+			bildkarte = handkarten.get(0).getRank();
+		}
+		
+		for(Card card : commkarten) {
+			if (card.getRank().equals(bildkarte)) {
+				drillingMitBild = true;
+			}
+		}
+		
+		return drillingMitBild;
 	}
 	
 	private static boolean isAKQJ(Card card) {
