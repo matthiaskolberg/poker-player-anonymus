@@ -21,7 +21,7 @@ public class Player {
 			
 			for(int i = 0;i<players.size();i++) {
 				JsonObject player = players.get(i).getAsJsonObject();
-				System.out.println(player);
+				System.out.println("here is the player" + player);
 			}
 			
 			return 10000;
