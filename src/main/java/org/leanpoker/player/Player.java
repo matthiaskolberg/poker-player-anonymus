@@ -30,11 +30,11 @@ public class Player {
 				}
 			}
 			
-			JsonArray holeCards = obj.get("hole_cards").getAsJsonArray();
+			/**JsonArray holeCards = obj.get("hole_cards").getAsJsonArray();
 			for(int i = 0;i<holeCards.size();i++) {
 				JsonObject card = holeCards.get(i).getAsJsonObject();
 				ourCards[i] = new Card(card.get("rank").getAsString(),card.get("suit").getAsString());
-			}
+			}*/
 			
 			System.out.println("unsere Karten" + ourCards);
 			
