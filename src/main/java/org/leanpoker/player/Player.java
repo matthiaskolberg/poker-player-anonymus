@@ -53,6 +53,10 @@ public class Player {
 			
 			int hoechsterbet = obj.get("minimum_raise").getAsInt();
 			
+			System.out.println("current_buy_in: " + obj.get("current_buy_in").getAsInt());
+			System.out.println("minimum_raise: " + obj.get("minimum_raise").getAsInt());
+			
+			
 			// wir gehen immer mit
 			int unserbet = 0;
 			String preflopDecision = getPreflopDecision(ourCards);
@@ -80,7 +84,7 @@ public class Player {
 					System.out.println("wir haben kein Bild, suited zahl");
 					unserbet = hoechsterbet;
 				}
-			} else if (communityCards.size() > 0) {
+			} else {
 				int karte1matches = countMatchingCardsInComm(ourCards.get(0), communityCards);
 				int karte2matches = countMatchingCardsInComm(ourCards.get(0), communityCards);
 				
