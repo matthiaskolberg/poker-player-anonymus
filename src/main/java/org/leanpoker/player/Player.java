@@ -42,7 +42,7 @@ public class Player {
 				ourCards.add(new Card(rank, suit));
 			}
 			
-			JsonArray commCards = player.get("community_cards").getAsJsonArray();
+			JsonArray commCards = obj.get("community_cards").getAsJsonArray();
 			for(int i = 0;i<commCards.size();i++) {
 				JsonObject card = commCards.get(i).getAsJsonObject();
 				String rank = card.get("rank").getAsString();
