@@ -30,7 +30,15 @@ public class Player {
 				}
 			}
 			
-			return 100;
+			/**JsonArray holeCards = obj.get("hole_cards").getAsJsonArray();
+			for(int i = 0;i<holeCards.size();i++) {
+				JsonObject card = holeCards.get(i).getAsJsonObject();
+				ourCards[i] = new Card(card.get("rank"),card.get("suit"));
+			}**/
+			
+			int bet = obj.get("bet_index").getAsInt();
+			
+			return bet*103;
 		} catch (Throwable e) {
 			System.err.println(e);
 			return 50;
