@@ -74,7 +74,7 @@ public class Player {
 					// und beide karten von einer farbe
 					if (isSuitedOnHand(ourCards)) {
 						// gleiche Farbe
-						unserbet = hoechsterbet*10;
+						unserbet = hoechsterbet*2;
 					}					
 				} else {
 					// paar mit community cards
