@@ -70,16 +70,18 @@ public class Player {
 				// wire haben ein bild
 				System.out.println("wir haben ein Bild");
 
-				// und beide karten von einer farbe
-				if (isSuitedOnHand(ourCards)) {
-					// gleiche Farbe
-					unserbet = hoechsterbet*10;
+				if (communityCards.size() == 0) {
+					// und beide karten von einer farbe
+					if (isSuitedOnHand(ourCards)) {
+						// gleiche Farbe
+						unserbet = hoechsterbet*10;
+					}					
+				} else {
+					// paar mit community cards
+					if (paarMitBild(ourCards, communityCards)) {
+						unserbet = hoechsterbet*5;
+					} 					
 				}
-				
-				// paar mit community cards
-				if (paarMitBild(ourCards, communityCards)) {
-					unserbet = hoechsterbet*5;
-				} 
 			}
 					
 			return unserbet;
