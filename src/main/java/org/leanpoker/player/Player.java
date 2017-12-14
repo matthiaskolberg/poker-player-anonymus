@@ -64,7 +64,7 @@ public class Player {
 			if (communityCards.size() == 0) {
 				if (preflopDecision.equals("2BS")) {
 					System.out.println("wir haben zwei Bilder auf der hand suited");
-					unserbet = hoechsterbet*2;
+					unserbet = hoechsterbet*4;
 				} else if (preflopDecision.equals("2BP")) {
 					System.out.println("Paar Rock'n'Roll!");
 					unserbet = hoechsterbet*4;
@@ -92,7 +92,7 @@ public class Player {
 				if (preflopDecision.equals("2BS")) {
 					System.out.println("wir haben zwei Bilder auf der hand suited");
 					if (karte1matches >= 1 || karte2matches >= 1) {
-						unserbet = hoechsterbet*3;
+						unserbet = hoechsterbet*5;
 					} else if (countMatchingCardsColor(ourCards.get(0), communityCards) >= 3) {
 						unserbet = hoechsterbet*10;
 					}
