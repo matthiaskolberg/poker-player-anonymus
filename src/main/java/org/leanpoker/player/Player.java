@@ -22,9 +22,11 @@ public class Player {
 			for(int i = 0;i<players.size();i++) {
 				JsonObject player = players.get(i).getAsJsonObject();
 				System.out.println("here is the player" + player);
+				
+				
 			}
 			
-			return 10000;
+			return 100;
 		} catch (Throwable e) {
 			System.err.println(e);
 			return 50;
