@@ -57,27 +57,29 @@ public class Player {
 			int unserbet = 0;
 			String preflopDecision = getPreflopDecision(ourCards);
 
-			if (preflopDecision.equals("2BS")) {
-				System.out.println("wir haben zwei Bilder auf der hand suited");
-				unserbet = hoechsterbet*2;
-			} else if (preflopDecision.equals("2BP")) {
-				System.out.println("Paar Rock'n'Roll!");
-				unserbet = hoechsterbet*4;
-			} else if (preflopDecision.equals("2BU")) {
-				System.out.println("wir haben zwei Bilder auf der hand unsuited");
-				unserbet = hoechsterbet*2;
-			} else if (preflopDecision.equals("1BS")) {
-				System.out.println("wir haben ein Bild suited auf der hand");
-				unserbet = hoechsterbet*2;
-			} else if (preflopDecision.equals("1BU")) {
-				System.out.println("wir haben ein Bild unsuited auf der hand");
-				unserbet = hoechsterbet;
-			} else if (preflopDecision.equals("0P")) {
-				System.out.println("wir haben ein paar, kein Bild");
-				unserbet = hoechsterbet*4;
-			} else if (preflopDecision.equals("0S")) {
-				System.out.println("wir haben kein Bild, suited zahl");
-				unserbet = hoechsterbet;
+			if (communityCards.size() == 0) {
+				if (preflopDecision.equals("2BS")) {
+					System.out.println("wir haben zwei Bilder auf der hand suited");
+					unserbet = hoechsterbet*2;
+				} else if (preflopDecision.equals("2BP")) {
+					System.out.println("Paar Rock'n'Roll!");
+					unserbet = hoechsterbet*4;
+				} else if (preflopDecision.equals("2BU")) {
+					System.out.println("wir haben zwei Bilder auf der hand unsuited");
+					unserbet = hoechsterbet*2;
+				} else if (preflopDecision.equals("1BS")) {
+					System.out.println("wir haben ein Bild suited auf der hand");
+					unserbet = hoechsterbet*2;
+				} else if (preflopDecision.equals("1BU")) {
+					System.out.println("wir haben ein Bild unsuited auf der hand");
+					unserbet = hoechsterbet;
+				} else if (preflopDecision.equals("0P")) {
+					System.out.println("wir haben ein paar, kein Bild");
+					unserbet = hoechsterbet*4;
+				} else if (preflopDecision.equals("0S")) {
+					System.out.println("wir haben kein Bild, suited zahl");
+					unserbet = hoechsterbet;
+				}
 			}
 					
 			return unserbet;
@@ -108,6 +110,12 @@ public class Player {
 		} else if (isSuitedOnHand(cards)) {
 			decision = "0S";
 		}
+		return decision;
+	}
+	
+	private static String getFlopDecision(List<Card> ourCards, List<Card> communityCards) {
+		String decision = "";
+		
 		return decision;
 	}
 	
