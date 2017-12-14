@@ -56,19 +56,27 @@ public class Player {
 			// wir gehen immer mit
 			int unserbet = 0;
 
+			// wenn wir zwei bilder haben
 			if (isAKQJ(ourCards.get(0)) && isAKQJ(ourCards.get(1))) {
 				System.out.println("wir haben zwei Bilder");
 				// verdoppeln des einsatzes 
-				unserbet = hoechsterbet*20;
+				unserbet = hoechsterbet*2;
 				
+				//Paar mit Bildern!! Rock n Roll!!
 				if (isPairOnHand(ourCards)) {
-					//Paar mit Bildern!! Rock n Roll!!
 					unserbet = hoechsterbet*40;
 				}
 			} else if (isAKQJ(ourCards.get(0)) || isAKQJ(ourCards.get(1))) {
+				// wire haben ein bild
 				System.out.println("wir haben ein Bild");
+
+				// paar mit community cards
+				if (paarMitBild(ourCards, communityCards)) {
+					unserbet = hoechsterbet*5;
+				}
 				
-				if (isSuited(ourCards)) {
+				// und beide karten von einer farbe
+				if (isSuitedOnHand(ourCards)) {
 					// gleiche Farbe
 					unserbet = hoechsterbet*10;
 				}
@@ -81,6 +89,25 @@ public class Player {
 		}
 	}
 	
+	private static boolean paarMitBild(List<Card> handkarten, List<Card> commkarten) {
+		boolean paarMitBild = false;
+		
+		String bildkarte = "";
+		if (isAKQJ(handkarten.get(0))) {
+			bildkarte = handkarten.get(0).getRank();
+		} else {
+			bildkarte = handkarten.get(0).getRank();
+		}
+		
+		for(Card card : commkarten) {
+			if (card.getRank().equals(bildkarte)) {
+				paarMitBild = true;
+			}
+		}
+		
+		return paarMitBild;
+	}
+	
 	private static boolean isAKQJ(Card card) {
 		boolean isAKQJ = false;
 		if (card.getRank().matches("[AKQJ]")) {
@@ -90,7 +117,8 @@ public class Player {
 		return isAKQJ;
 	}
 	
-	private static boolean isSuited(List<Card> cards) {
+	// on hand
+	private static boolean isSuitedOnHand(List<Card> cards) {
 		boolean isSuited = false;
 		if (cards.get(0).getSuit().equals(cards.get(1).getSuit())) {
 			isSuited = true;
