@@ -49,11 +49,18 @@ public class Player {
 			if (isAKQJ(ourCards.get(0)) && isAKQJ(ourCards.get(1))) {
 				System.out.println("wir haben zwei Bilder");
 				// verdoppeln des einsatzes 
-				unserbet = hoechsterbet*2;
+				unserbet = hoechsterbet*20;
 				
 				if (isPairOnHand(ourCards)) {
 					//Paar mit Bildern!! Rock n Roll!!
-					unserbet = hoechsterbet*4;
+					unserbet = hoechsterbet*40;
+				}
+			} else if (isAKQJ(ourCards.get(0)) || isAKQJ(ourCards.get(1))) {
+				System.out.println("wir haben ein Bild");
+				
+				if (isSuited(ourCards)) {
+					// gleiche Farbe
+					unserbet = hoechsterbet*10;
 				}
 			}
 					
