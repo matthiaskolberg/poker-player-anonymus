@@ -33,12 +33,17 @@ public class Player {
 			JsonArray holeCards = player.get("hole_cards").getAsJsonArray();
 			for(int i = 0;i<holeCards.size();i++) {
 				JsonObject card = holeCards.get(i).getAsJsonObject();
-				ourCards[i] = new Card(card.get("rank").getAsString(),card.get("suit").getAsString());
+				String rank = card.get("rank").getAsString();
+				String suit = card.get("suit").getAsString();
+				System.out.println("Karte"+i+" rank:" + rank + " suit:" + suit);
+				ourCards[i] = new Card(rank, suit);
 			}
 			
-			System.out.println("unsere Karten" + ourCards);
+			
 			
 			int bet = obj.get("bet_index").getAsInt();
+			
+			
 			
 			return bet*103;
 		} catch (Throwable e) {
