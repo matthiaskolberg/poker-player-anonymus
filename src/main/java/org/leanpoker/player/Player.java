@@ -19,11 +19,15 @@ public class Player {
 			JsonObject obj = request.getAsJsonObject();
 			JsonArray players = obj.get("players").getAsJsonArray();
 			
+			JsonObject player;
 			for(int i = 0;i<players.size();i++) {
-				JsonObject player = players.get(i).getAsJsonObject();
-				System.out.println("here is the player" + player);
+				player = players.get(i).getAsJsonObject();
+				System.out.println("here is one player" + player);
 				
-				
+				if (player.get("name").equals("Anonymus")) {
+					System.out.println("this is our player");
+					break;
+				}
 			}
 			
 			return 100;
