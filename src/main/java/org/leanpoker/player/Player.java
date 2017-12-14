@@ -51,7 +51,7 @@ public class Player {
 				communityCards.add(new Card(rank, suit));
 			}
 			
-			int hoechsterbet = obj.get("current_buy_in").getAsInt();
+			int hoechsterbet = obj.get("minimum_raise").getAsInt();
 			
 			// wir gehen immer mit
 			int unserbet = 0;
