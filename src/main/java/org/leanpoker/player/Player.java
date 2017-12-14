@@ -24,17 +24,19 @@ public class Player {
 				player = players.get(i).getAsJsonObject();
 				System.out.println("here is one player" + player);
 				
-				if (player.get("name").equals("Anonymus")) {
+				if (player.get("name").getAsString().equals("Anonymus")) {
 					System.out.println("this is our player");
 					break;
 				}
 			}
 			
-			/**JsonArray holeCards = obj.get("hole_cards").getAsJsonArray();
+			JsonArray holeCards = obj.get("hole_cards").getAsJsonArray();
 			for(int i = 0;i<holeCards.size();i++) {
 				JsonObject card = holeCards.get(i).getAsJsonObject();
-				ourCards[i] = new Card(card.get("rank"),card.get("suit"));
-			}**/
+				ourCards[i] = new Card(card.get("rank").getAsString(),card.get("suit").getAsString());
+			}
+			
+			System.out.println("unsere Karten" + ourCards);
 			
 			int bet = obj.get("bet_index").getAsInt();
 			
