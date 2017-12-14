@@ -44,7 +44,7 @@ public class Player {
 			
 			int hoechsterbet = obj.get("current_buy_in").getAsInt();
 			// wir gehen immer mit
-			int unserbet = hoechsterbet;
+			int unserbet = 50;
 
 			if (isAKQJ(ourCards.get(0)) && isAKQJ(ourCards.get(1))) {
 				System.out.println("wir haben zwei Bilder");
@@ -56,18 +56,13 @@ public class Player {
 					unserbet = hoechsterbet*4;
 				}
 			}
-			
-			
-			
-			
-			
+					
 			return unserbet;
 		} catch (Throwable e) {
 			System.err.println(e);
 			return 123;
 		}
 	}
-	
 	
 	private static boolean isAKQJ(Card card) {
 		boolean isAKQJ = false;
