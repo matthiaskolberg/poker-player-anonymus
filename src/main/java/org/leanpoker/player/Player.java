@@ -56,9 +56,9 @@ public class Player {
 			// wir gehen immer mit
 			int unserbet = 0;
 
-			// wenn wir zwei bilder haben
+			// wenn wir zwei bilder auf der hand haben
 			if (isAKQJ(ourCards.get(0)) && isAKQJ(ourCards.get(1))) {
-				System.out.println("wir haben zwei Bilder");
+				System.out.println("wir haben zwei Bilder auf der hand");
 				// verdoppeln des einsatzes 
 				unserbet = hoechsterbet*2;
 				
@@ -67,8 +67,8 @@ public class Player {
 					unserbet = hoechsterbet*40;
 				}
 			} else if (isAKQJ(ourCards.get(0)) || isAKQJ(ourCards.get(1))) {
-				// wire haben ein bild
-				System.out.println("wir haben ein Bild");
+				// wir haben ein bild auf der hand
+				System.out.println("wir haben ein Bild auf der hand");
 
 				if (communityCards.size() == 0) {
 					// und beide karten von einer farbe
@@ -81,6 +81,13 @@ public class Player {
 					if (paarMitBild(ourCards, communityCards)) {
 						unserbet = hoechsterbet*5;
 					} 					
+				}
+			} else {
+				// wir haben kein bild auf der hand
+				
+				// aber ein paar
+				if (isPairOnHand(ourCards)) {
+					unserbet = hoechsterbet*2;
 				}
 			}
 					
