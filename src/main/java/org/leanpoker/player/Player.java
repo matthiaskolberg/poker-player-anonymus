@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 public class Player {
 
@@ -14,8 +14,8 @@ public class Player {
 
 	public static int betRequest(JsonElement request) {
 		
-		List<Card> ourCards = new ArrayList();
-		List<Card> communityCards = new ArrayList();
+		List<Card> ourCards = new ArrayList<>();
+		List<Card> communityCards = new ArrayList<>();
 		
 		
 		try {
@@ -70,16 +70,16 @@ public class Player {
 				// wire haben ein bild
 				System.out.println("wir haben ein Bild");
 
-				// paar mit community cards
-				if (paarMitBild(ourCards, communityCards)) {
-					unserbet = hoechsterbet*5;
-				}
-				
 				// und beide karten von einer farbe
 				if (isSuitedOnHand(ourCards)) {
 					// gleiche Farbe
 					unserbet = hoechsterbet*10;
 				}
+				
+				// paar mit community cards
+				if (paarMitBild(ourCards, communityCards)) {
+					unserbet = hoechsterbet*5;
+				} 
 			}
 					
 			return unserbet;
