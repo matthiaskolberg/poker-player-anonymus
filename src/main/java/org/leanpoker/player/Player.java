@@ -87,11 +87,10 @@ public class Player {
 				if (preflopDecision.equals("2BS")) {
 					System.out.println("wir haben zwei Bilder auf der hand suited");
 					if (karte1matches == 1 && karte2matches == 0) {
-						unserbet = hoechsterbet*4;
+						unserbet = hoechsterbet*3;
 					} else if (karte1matches == 0 && karte2matches == 1) {
-						unserbet = hoechsterbet*4;
+						unserbet = hoechsterbet*3;
 					}
-					
 				} else if (preflopDecision.equals("2BP")) {
 					System.out.println("Paar Rock'n'Roll!");
 					if (karte1matches == 1 && karte2matches == 0) {
@@ -102,24 +101,39 @@ public class Player {
 				} else if (preflopDecision.equals("2BU")) {
 					System.out.println("wir haben zwei Bilder auf der hand unsuited");
 					if (karte1matches == 1 && karte2matches == 0) {
+						unserbet = hoechsterbet*3;
+					} else if (karte1matches == 0 && karte2matches == 1) {
+						unserbet = hoechsterbet*3;
+					}
+				} else if (preflopDecision.equals("1BS")) {
+					System.out.println("wir haben ein Bild suited auf der hand");
+					if (karte1matches == 1 && karte2matches == 0) {
+						unserbet = hoechsterbet;
+					} else if (karte1matches == 0 && karte2matches == 1) {
+						unserbet = hoechsterbet;
+					}
+				} else if (preflopDecision.equals("1BU")) {
+					System.out.println("wir haben ein Bild unsuited auf der hand");
+					if (karte1matches == 1 && karte2matches == 0) {
+						unserbet = hoechsterbet;
+					} else if (karte1matches == 0 && karte2matches == 1) {
+						unserbet = hoechsterbet;
+					}
+				} else if (preflopDecision.equals("0P")) {
+					System.out.println("wir haben ein paar, kein Bild");
+					if (karte1matches == 1 && karte2matches == 0) {
 						unserbet = hoechsterbet*4;
 					} else if (karte1matches == 0 && karte2matches == 1) {
 						unserbet = hoechsterbet*4;
 					}
-				} else if (preflopDecision.equals("1BS")) {
-					System.out.println("wir haben ein Bild suited auf der hand");
-					unserbet = hoechsterbet*2;
-				} else if (preflopDecision.equals("1BU")) {
-					System.out.println("wir haben ein Bild unsuited auf der hand");
-					unserbet = hoechsterbet;
-				} else if (preflopDecision.equals("0P")) {
-					System.out.println("wir haben ein paar, kein Bild");
-					unserbet = hoechsterbet*4;
 				} else if (preflopDecision.equals("0S")) {
 					System.out.println("wir haben kein Bild, suited zahl");
-					unserbet = hoechsterbet;
+					if (karte1matches == 1 && karte2matches == 0) {
+						unserbet = hoechsterbet;
+					} else if (karte1matches == 0 && karte2matches == 1) {
+						unserbet = hoechsterbet;
+					}
 				}
-				
 			}
 					
 			return unserbet;
