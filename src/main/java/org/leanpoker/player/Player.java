@@ -13,8 +13,10 @@ public class Player {
 
 		try {
 			JsonArray req = request.getAsJsonArray();
+			JsonElement first = req.get(0);
 			return 50;
 		} catch (Throwable e) {
+			System.err.println(e);
 			return 50;
 		}
 	}
