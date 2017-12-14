@@ -69,6 +69,15 @@ public class Player {
 			} else if (preflopDecision.equals("1BS")) {
 				System.out.println("wir haben ein Bild suited auf der hand");
 				unserbet = hoechsterbet*2;
+			} else if (preflopDecision.equals("1BU")) {
+				System.out.println("wir haben ein Bild unsuited auf der hand");
+				unserbet = hoechsterbet;
+			} else if (preflopDecision.equals("0P")) {
+				System.out.println("wir haben ein paar, kein Bild");
+				unserbet = hoechsterbet*4;
+			} else if (preflopDecision.equals("0S")) {
+				System.out.println("wir haben kein Bild, suited zahl");
+				unserbet = hoechsterbet;
 			}
 					
 			return unserbet;
