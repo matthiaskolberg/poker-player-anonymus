@@ -19,7 +19,7 @@ public class Player {
 			JsonObject obj = request.getAsJsonObject();
 			JsonArray players = obj.get("players").getAsJsonArray();
 			
-			JsonObject player;
+			JsonObject player = null;
 			for(int i = 0;i<players.size();i++) {
 				player = players.get(i).getAsJsonObject();
 				System.out.println("here is one player" + player);
@@ -30,11 +30,11 @@ public class Player {
 				}
 			}
 			
-			/**JsonArray holeCards = obj.get("hole_cards").getAsJsonArray();
+			JsonArray holeCards = player.get("hole_cards").getAsJsonArray();
 			for(int i = 0;i<holeCards.size();i++) {
 				JsonObject card = holeCards.get(i).getAsJsonObject();
 				ourCards[i] = new Card(card.get("rank").getAsString(),card.get("suit").getAsString());
-			}*/
+			}
 			
 			System.out.println("unsere Karten" + ourCards);
 			
@@ -43,7 +43,7 @@ public class Player {
 			return bet*103;
 		} catch (Throwable e) {
 			System.err.println(e);
-			return 50;
+			return 999;
 		}
 	}
 
