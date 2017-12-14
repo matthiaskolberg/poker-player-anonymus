@@ -84,10 +84,13 @@ public class Player {
 				int karte1matches = countMatchingCardsInComm(ourCards.get(0), communityCards);
 				int karte2matches = countMatchingCardsInComm(ourCards.get(0), communityCards);
 				
+				
 				if (preflopDecision.equals("2BS")) {
 					System.out.println("wir haben zwei Bilder auf der hand suited");
 					if (karte1matches >= 1 || karte2matches >= 1) {
 						unserbet = hoechsterbet*3;
+					} else if (countMatchingCardsColor(ourCards.get(0), communityCards) >= 3) {
+						unserbet = hoechsterbet*10;
 					}
 				} else if (preflopDecision.equals("2BP")) {
 					System.out.println("Paar Rock'n'Roll!");
@@ -103,6 +106,8 @@ public class Player {
 					System.out.println("wir haben ein Bild suited auf der hand");
 					if (karte1matches >= 1 || karte2matches >= 1) {
 						unserbet = hoechsterbet*2;
+					} else if (countMatchingCardsColor(ourCards.get(0), communityCards) >= 3) {
+						unserbet = hoechsterbet*10;
 					}
 				} else if (preflopDecision.equals("1BU")) {
 					System.out.println("wir haben ein Bild unsuited auf der hand");
@@ -118,6 +123,8 @@ public class Player {
 					System.out.println("wir haben kein Bild, suited zahl");
 					if (karte1matches >= 1 || karte2matches >= 1) {
 						unserbet = hoechsterbet*3;
+					} else if (countMatchingCardsColor(ourCards.get(0), communityCards) >= 3) {
+						unserbet = hoechsterbet*10;
 					}
 				}
 			}
@@ -133,6 +140,16 @@ public class Player {
 		int count = 0;
 		for(Card karte: communityCards) {
 			if (karte.getRank().equals(card.getRank())) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	private static int countMatchingCardsColor (Card card, List<Card> communityCards) {
+		int count = 0;
+		for (Card karte: communityCards) {
+			if(karte.getSuit().equals(card.getSuit())){
 				count++;
 			}
 		}
