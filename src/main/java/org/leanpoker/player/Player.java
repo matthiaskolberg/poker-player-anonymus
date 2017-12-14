@@ -2,6 +2,7 @@ package org.leanpoker.player;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import java.util.Map;
 
@@ -12,8 +13,9 @@ public class Player {
 	public static int betRequest(JsonElement request) {
 
 		try {
-			JsonArray req = request.getAsJsonArray();
-			JsonElement first = req.get(0);
+			JsonObject obj = request.getAsJsonObject();
+			JsonArray players = obj.get("players").getAsJsonArray();
+			
 			return 50;
 		} catch (Throwable e) {
 			System.err.println(e);
