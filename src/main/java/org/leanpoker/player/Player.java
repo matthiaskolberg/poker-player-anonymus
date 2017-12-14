@@ -51,88 +51,36 @@ public class Player {
 				communityCards.add(new Card(rank, suit));
 			}
 			
-			int hoechsterbet = obj.get("minimum_raise").getAsInt();
+			int hoechsterbet = obj.get("current_buy_in").getAsInt();
 			
 			// wir gehen immer mit
 			int unserbet = 0;
-			String preflopDecision = getPreflopDecision(ourCards);
 
-			if (communityCards.size() == 0) {
-				if (preflopDecision.equals("2BS")) {
-					System.out.println("wir haben zwei Bilder auf der hand suited");
-					unserbet = hoechsterbet*2;
-				} else if (preflopDecision.equals("2BP")) {
-					System.out.println("Paar Rock'n'Roll!");
-					unserbet = hoechsterbet*4;
-				} else if (preflopDecision.equals("2BU")) {
-					System.out.println("wir haben zwei Bilder auf der hand unsuited");
-					unserbet = hoechsterbet*2;
-				} else if (preflopDecision.equals("1BS")) {
-					System.out.println("wir haben ein Bild suited auf der hand");
-					unserbet = hoechsterbet*2;
-				} else if (preflopDecision.equals("1BU")) {
-					System.out.println("wir haben ein Bild unsuited auf der hand");
-					unserbet = hoechsterbet;
-				} else if (preflopDecision.equals("0P")) {
-					System.out.println("wir haben ein paar, kein Bild");
-					unserbet = hoechsterbet*4;
-				} else if (preflopDecision.equals("0S")) {
-					System.out.println("wir haben kein Bild, suited zahl");
-					unserbet = hoechsterbet;
-				}
-			} else if (communityCards.size() == 3) {
-				int karte1matches = countMatchingCardsInComm(ourCards.get(0), communityCards);
-				int karte2matches = countMatchingCardsInComm(ourCards.get(0), communityCards);
+			// wenn wir zwei bilder haben
+			if (isAKQJ(ourCards.get(0)) && isAKQJ(ourCards.get(1))) {
+				System.out.println("wir haben zwei Bilder");
+				// verdoppeln des einsatzes 
+				unserbet = hoechsterbet*2;
 				
-				if (preflopDecision.equals("2BS")) {
-					System.out.println("wir haben zwei Bilder auf der hand suited");
-					if (karte1matches == 1 && karte2matches == 0) {
-						unserbet = hoechsterbet*3;
-					} else if (karte1matches == 0 && karte2matches == 1) {
-						unserbet = hoechsterbet*3;
-					}
-				} else if (preflopDecision.equals("2BP")) {
-					System.out.println("Paar Rock'n'Roll!");
-					if (karte1matches == 1 && karte2matches == 0) {
-						unserbet = hoechsterbet*4;
-					} else if (karte1matches == 0 && karte2matches == 1) {
-						unserbet = hoechsterbet*4;
-					}
-				} else if (preflopDecision.equals("2BU")) {
-					System.out.println("wir haben zwei Bilder auf der hand unsuited");
-					if (karte1matches == 1 && karte2matches == 0) {
-						unserbet = hoechsterbet*3;
-					} else if (karte1matches == 0 && karte2matches == 1) {
-						unserbet = hoechsterbet*3;
-					}
-				} else if (preflopDecision.equals("1BS")) {
-					System.out.println("wir haben ein Bild suited auf der hand");
-					if (karte1matches == 1 && karte2matches == 0) {
-						unserbet = hoechsterbet;
-					} else if (karte1matches == 0 && karte2matches == 1) {
-						unserbet = hoechsterbet;
-					}
-				} else if (preflopDecision.equals("1BU")) {
-					System.out.println("wir haben ein Bild unsuited auf der hand");
-					if (karte1matches == 1 && karte2matches == 0) {
-						unserbet = hoechsterbet;
-					} else if (karte1matches == 0 && karte2matches == 1) {
-						unserbet = hoechsterbet;
-					}
-				} else if (preflopDecision.equals("0P")) {
-					System.out.println("wir haben ein paar, kein Bild");
-					if (karte1matches == 1 && karte2matches == 0) {
-						unserbet = hoechsterbet*4;
-					} else if (karte1matches == 0 && karte2matches == 1) {
-						unserbet = hoechsterbet*4;
-					}
-				} else if (preflopDecision.equals("0S")) {
-					System.out.println("wir haben kein Bild, suited zahl");
-					if (karte1matches == 1 && karte2matches == 0) {
-						unserbet = hoechsterbet;
-					} else if (karte1matches == 0 && karte2matches == 1) {
-						unserbet = hoechsterbet;
-					}
+				//Paar mit Bildern!! Rock n Roll!!
+				if (isPairOnHand(ourCards)) {
+					unserbet = hoechsterbet*40;
+				}
+			} else if (isAKQJ(ourCards.get(0)) || isAKQJ(ourCards.get(1))) {
+				// wire haben ein bild
+				System.out.println("wir haben ein Bild");
+
+				if (communityCards.size() == 0) {
+					// und beide karten von einer farbe
+					if (isSuitedOnHand(ourCards)) {
+						// gleiche Farbe
+						unserbet = hoechsterbet*2;
+					}					
+				} else {
+					// paar mit community cards
+					if (paarMitBild(ourCards, communityCards)) {
+						unserbet = hoechsterbet*5;
+					} 					
 				}
 			}
 					
@@ -141,46 +89,6 @@ public class Player {
 			System.err.println(e);
 			return 123;
 		}
-	}
-	
-	private static int countMatchingCardsInComm(Card card, List<Card> communityCards) {
-		int count = 0;
-		for(Card karte: communityCards) {
-			if (karte.getRank().equals(card.getRank())) {
-				count++;
-			}
-		}
-		return count;
-	}
-	
-	private static String getPreflopDecision(List<Card> cards) {
-		String decision = "";
-		if (isAKQJ(cards.get(0)) && isAKQJ(cards.get(1))) {
-			if (isPairOnHand(cards)) {
-				decision = "2BP";
-			} else if (isSuitedOnHand(cards)) {
-				decision = "2BS";
-			} else {
-				decision = "2BU";
-			}
-		} else if (isAKQJ(cards.get(0)) || isAKQJ(cards.get(1))) {
-			if (isSuitedOnHand(cards)) {
-				decision = "1BS";
-			} else {
-				decision = "1BU";
-			}
-		} else if (isPairOnHand(cards)) {
-			decision = "0P";
-		} else if (isSuitedOnHand(cards)) {
-			decision = "0S";
-		}
-		return decision;
-	}
-	
-	private static String getFlopDecision(List<Card> ourCards, List<Card> communityCards) {
-		String decision = "";
-		
-		return decision;
 	}
 	
 	private static boolean paarMitBild(List<Card> handkarten, List<Card> commkarten) {
@@ -200,25 +108,6 @@ public class Player {
 		}
 		
 		return paarMitBild;
-	}
-	
-	private static boolean isDrilling(List<Card> handkarten, List<Card> commkarten) {
-		boolean drillingMitBild = false;
-		
-		String bildkarte = "";
-		if (isAKQJ(handkarten.get(0))) {
-			bildkarte = handkarten.get(0).getRank();
-		} else {
-			bildkarte = handkarten.get(0).getRank();
-		}
-		
-		for(Card card : commkarten) {
-			if (card.getRank().equals(bildkarte)) {
-				drillingMitBild = true;
-			}
-		}
-		
-		return drillingMitBild;
 	}
 	
 	private static boolean isAKQJ(Card card) {
