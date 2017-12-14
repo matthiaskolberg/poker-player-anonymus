@@ -42,9 +42,19 @@ public class Player {
 				ourCards.add(new Card(rank, suit));
 			}
 			
+			JsonArray commCards = player.get("community_cards").getAsJsonArray();
+			for(int i = 0;i<commCards.size();i++) {
+				JsonObject card = commCards.get(i).getAsJsonObject();
+				String rank = card.get("rank").getAsString();
+				String suit = card.get("suit").getAsString();
+				System.out.println("CommunityKarte"+i+" rank:" + rank + " suit:" + suit);
+				communityCards.add(new Card(rank, suit));
+			}
+			
 			int hoechsterbet = obj.get("current_buy_in").getAsInt();
+			
 			// wir gehen immer mit
-			int unserbet = 50;
+			int unserbet = 0;
 
 			if (isAKQJ(ourCards.get(0)) && isAKQJ(ourCards.get(1))) {
 				System.out.println("wir haben zwei Bilder");
