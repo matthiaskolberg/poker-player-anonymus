@@ -135,7 +135,7 @@ public class Player {
 			isPair = true;
 		}
 		System.out.println("isPair: " + isPair);
-		return isPair;
+		return isPair;   
 	}
 
 	public static void showdown(JsonElement game) {
